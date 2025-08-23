@@ -1,0 +1,95 @@
+@import "tailwindcss";
+@source "../views";
+
+@theme {
+    --color-main_color: #ff4c28;
+    --color-second_color: #28b1ff;
+}
+
+@layer components{
+    h1{
+        @apply text-5xl font-bold mb-1
+    }
+    h2{
+        @apply text-3xl font-bold mb-1
+    }
+    h3{
+        @apply text-lg font-bold mb-1
+    }h4{
+        @apply font-bold mb-1
+    }
+    .x-box{
+        @apply bg-slate-50 p-6 rounded border-zinc-300 shadow
+    }
+    .tkicon{
+        @apply fill-none stroke-current
+    }
+    .tkicon.active{
+        @apply stroke-main_color
+    }
+    .btn-stroke{
+        @apply px-3 py-2 border border-gray-300 rounded-lg shadow
+    }
+    .input{
+        @apply border border-zinc-300 px-3 py-1 rounded focus:outline-2 focus:outline-blue-600 bg-transparent block w-full
+    }
+    table.tableData td{
+        @apply p-2
+    }
+    table.tableData tr .action{
+        @apply invisible flex gap-3 items-center justify-end
+    }
+    table.tableData tr:hover .action{
+        @apply visible
+    }
+    form .legend{
+        @apply p-3 font-bold text-xl
+    }
+
+    form .fieldset {
+        @apply border border-slate-400 rounded-lg p-3
+    }
+    .inner-container {
+        @apply w-11/12 md:w-3/4 max-w-7xl mx-auto
+    }
+    .bg-theme-1{
+        background-image: url("/public/storage/admin/theme-1.jpg");
+    }
+    .bg-theme-2{
+        background-image: url("/public/storage/admin/theme-2.jpg");
+    }
+    .bg-theme-3{
+        background-image: url("/public/storage/admin/theme-3.jpg");
+    }
+    .bg-theme-4{
+        background-image: url("/public/storage/admin/theme-4.jpeg");
+    }
+
+}
+.ts-wrapper.multi .ts-control > div{
+    margin: 2px!important;
+    padding: 2px 6px;
+    background: #eeeeec!important;
+    color: #0087ff!important;
+
+}
+.ts-wrapper.multi.has-items .ts-control{
+    border: 1px solid rgb(212, 212, 216);
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    outline-width: 2px;
+    outline-color: rgb(37, 99, 235);
+    background-color: transparent;
+    display: block;
+    width: 100%;
+}
+.ts-wrapper.multi .ts-control > div.active{
+    background: #cacac9 !important;
+}
+.ts-wrapper.plugin-remove_button:not(.rtl) .item .remove{
+    color: rgb(235, 37, 37)!important;
+
+}
+.ts-control{
+    background-color: unset!important;
+}

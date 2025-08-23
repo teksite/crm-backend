@@ -1,0 +1,10 @@
+{
+    "version":"1.0.0",
+    "id": "Department",
+    "title": "Department",
+    "alias": "department",
+    "description": "",
+    "keywords": [],
+    "providers": "Lareon\\Modules\\Department\\App\\Providers\\DepartmentServiceProvider"
+}
+
