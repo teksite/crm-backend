@@ -110,41 +110,6 @@ class PermissionsSeeder extends Seeder
                'title'=>'admin.user.delete',
                'description'=>'have access to delete users (in the admin panel)',
            ],
-            /*panel*/
-           [
-               'title'=>'panel',
-               'description'=>'have access to user panel',
-           ],
-           /* users */
-           [
-               'title'=>'panel.user.read',
-               'description'=>'have access to read one or all related users (in the user panel)',
-           ],
-           [
-               'title'=>'panel.user.create',
-               'description'=>'have access to create a new user (in the user panel)',
-           ],
-           [
-               'title'=>'panel.user.edit',
-               'description'=>'have access to edit related users (in the user panel)',
-           ],
-           [
-               'title'=>'panel.user.delete',
-               'description'=>'have access to delete related users (in the user panel)',
-           ],
-           /* profile */
-           [
-               'title'=>'panel.profile.edit',
-               'description'=>'have access to edit profile data (in the user panel)',
-           ],
-           [
-               'title'=>'panel.profile.towfactor',
-               'description'=>'have access to enable\disable two factor authentication (in the user panel)',
-           ],
-           [
-               'title'=>'panel.profile.delete',
-               'description'=>'have access to delete the account (in the user panel)',
-           ],
 
        ]);
     }

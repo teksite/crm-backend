@@ -4,62 +4,48 @@ namespace Lareon\Modules\Department\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Lareon\CMS\App\Models\User;
 
 class Department extends Model
 {
-    protected $fillable = ['department_id', 'manager_id', 'title'];
+    protected $fillable = ['description', 'title'];
 
     /**
      * @return string[]
      */
-    static function rules(): array
+    public static function rules(): array
     {
         return [
-            'head_id' => ['nullable'],
-            'title' => 'nullable|unique:departments,title|max:150',
+            'description' => 'nullable|string',
+            'title' => 'required|unique:departments,title|max:150',
         ];
     }
-
-    /**
-     * @return BelongsTo|null
-     */
-    public function head(): ?BelongsTo
-    {
-        return $this->belongsTo(User::class, 'head_id');
-    }
-
-    /**
-     * @return HasMany
-     */
     public function teams(): HasMany
     {
-        return $this->hasMany(Team::class, 'department_id');
+        return $this->hasMany(Team::class);
     }
 
-    /**
-     * @return HasMany
-     */
+    public function positions(): HasMany
+    {
+        return $this->hasMany(UserPosition::class);
+    }
+
+    public function head(): HasOne
+    {
+        return $this->hasOne(UserPosition::class)->where('position', 'head');
+    }
+
     public function managers(): HasMany
     {
-        return $this->hasManyThrough(User::class, 'department_id');
+        return $this->hasMany(UserPosition::class)->where('position', 'manager');
     }
 
-
-    /**
-     * @return HasMany
-     */
-    public function agents()
+    public function agents(): BelongsToMany
     {
-        return $this->hasManyThrough(
-            User::class,
-            Team::class,
-            'department_id',
-            'team_id',
-            'id',
-            'id'
-        );
+        return $this->hasMany(UserPosition::class)->whereNotIn('position', ['manager' ,'head']);
+
     }
 }

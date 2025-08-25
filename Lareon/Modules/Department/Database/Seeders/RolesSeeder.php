@@ -22,28 +22,15 @@ class RolesSeeder extends Seeder
            [
                'title' => 'team_manager',
                'hierarchy' => 20,
-               'description' => 'Manager of a specific team. Can manage users in their team',
+               'description' => 'Manager of a specific team. Can manage teams of the specific department',
            ],
+
            [
-               'title' => 'sales_agent',
-               'hierarchy' => 30,
-               'description' => 'Salesperson in a team. Limited access only to their own leads, opportunities, and tasks',
+               'title' => 'agent_manager',
+               'hierarchy' => 20,
+               'description' => 'Manager of a specific agents. Can manage agents of the specific team',
            ],
-           [
-               'title' => 'marketing_agent',
-               'hierarchy' => 30,
-               'description' => 'Marketing specialist in a team. Limited access to campaigns and activities',
-           ],
-           [
-               'title' => 'support_agent',
-               'hierarchy' => 30,
-               'description' => 'Support staff who handle tickets and customer issues',
-           ],
-           [
-               'title' => 'finance_staff',
-               'hierarchy' => 30,
-               'description' => 'Finance/accounting staff, access to invoices and payments',
-           ],
+
 
        ]);
     }

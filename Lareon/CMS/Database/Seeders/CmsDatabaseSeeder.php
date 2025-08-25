@@ -19,17 +19,26 @@ class CmsDatabaseSeeder extends Seeder
     public function run(): void
     {
         $modulesPermissionSeederClass=[];
+        $modulesPRoleSeederClass=[];
         foreach (Lareon::getModules() as $module){
-            $fullClassName = "Lareon\\Modules\\{$module}\\Database\\Seeders\\PermissionsSeeder";
-            $mainSeederPath = Module::modulePath($module, "Database/Seeders/PermissionsSeeder.php");
-            if (file_exists($mainSeederPath) && class_exists($fullClassName)) {
-                $modulesPermissionSeederClass[]=$fullClassName;
+            $fullClassPermissionName = "Lareon\\Modules\\{$module}\\Database\\Seeders\\PermissionsSeeder";
+            $mainPermissionSeederPath = Module::modulePath($module, "Database/Seeders/PermissionsSeeder.php");
+
+            $fullClassRoleName = "Lareon\\Modules\\{$module}\\Database\\Seeders\\RolesSeeder";
+            $mainRoleSeederPath = Module::modulePath($module, "Database/Seeders/RolesSeeder.php");
+            if (file_exists($mainPermissionSeederPath) && class_exists($fullClassPermissionName)) {
+                $modulesPermissionSeederClass[]=$fullClassPermissionName;
+            }
+
+            if (file_exists($mainRoleSeederPath) && class_exists($fullClassRoleName)) {
+                $modulesPRoleSeederClass[]=$fullClassRoleName;
             }
         }
 
         $this->call([
             PermissionsSeeder::class,
             ...$modulesPermissionSeederClass,
+            ...$modulesPRoleSeederClass,
             RolesSeeder::class,
             UsersSeeder::class,
         ]);

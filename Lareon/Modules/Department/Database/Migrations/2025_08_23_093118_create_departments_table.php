@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('head_id')->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();
             $table->string('title')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -77,7 +77,7 @@ class UserLogic
      * @param array $columns
      * @return ServiceResult
      */
-    public function find(string $word, array $columns = ['name']): ServiceResult
+    public function find(string $word, array $columns = ['name' ,'lastname']): ServiceResult
     {
         return app(ServiceWrapper::class)(function () use ($columns, $word) {
             $users = User::query();
@@ -86,7 +86,7 @@ class UserLogic
                 $users = $i === 1 ? $users->where($column, 'LIKE',`%$word%`) : $users->orWhere($column, 'LIKE',`%$word%`);
                 $i++;
             }
-            return $users->select(['id','name','email'])->get();
+            return $users->select(['id','name','lastname','email'])->get();
         });
     }
 

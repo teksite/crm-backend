@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname')->nullable();
             $table->string('email')->unique();
-            $table->string('phone' ,15)->nullable()->unique();
+            $table->string('phone', 15)->nullable()->unique();
             $table->unsignedBigInteger('telegram_id')->nullable();
             $table->string('featured_image')->nullable();
             $table->timestamp('email_verified_at')->nullable();

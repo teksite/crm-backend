@@ -40,7 +40,7 @@
             </span>
                 <hr class="border-dotted w-full">
                 <span class="min-w-fit">
-                {{dateAdapter($instance->read_at) ?? '*-'}}
+                {{dateAdapter($instance->read_at) ?? '-'}}
             </span>
             </div>
         @endif

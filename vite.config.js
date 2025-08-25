@@ -11,7 +11,7 @@ export default defineConfig({
                 ...globSync('Lareon/Modules/*/resources/js/app.js'),
                 ...globSync('Lareon/Modules/*/resources/css/app.css'),
 
-                'resources/css/app.css','resources/css/theme.css', 'resources/js/app.js', 'resources/js/theme.js',
+                'resources/css/app.css', 'resources/js/app.js',
             ],
             refresh: true,
         }),
