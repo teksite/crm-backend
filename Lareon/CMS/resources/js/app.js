@@ -236,10 +236,8 @@ const initializeDeleteManyForm = () => {
 };
 
 
-// Cache for storing API responses
 const responseCache = new Map();
 
-// Initialize Ajax Select boxes with TomSelect
 const initializeAjaxSelects = () => {
     const ajaxSelectEls = document.querySelectorAll('select.ajax_select');
     if (!ajaxSelectEls.length) return;
@@ -250,8 +248,8 @@ const initializeAjaxSelects = () => {
         const config = {
             id: el.id,
             valueField: el.getAttribute('data-value-field') ?? 'id',
-            labelField: el.getAttribute('data-label-field') ?? 'title',
-            searchField: el.getAttribute('data-search-field') ?? 'title',
+            labelField: el.getAttribute('data-label-field') ?? 'text',
+            searchFields: (el.getAttribute('data-search-field') ?? 'text').split(','),
             url: el.getAttribute('data-url'),
             isMultiple: el.hasAttribute('multiple')
         };
@@ -261,14 +259,13 @@ const initializeAjaxSelects = () => {
             return;
         }
 
-        // Initialize TomSelect
         tomSelectInstances.set(config.id, new TomSelect(`#${config.id}`, {
             valueField: config.valueField,
             labelField: config.labelField,
-            searchField: config.searchField,
+            searchField: config.searchFields,
             maxItems: config.isMultiple ? null : 1,
             load: debounce(async (query, callback) => {
-                if (query.length < 3) {
+                if (query.length < 2) {
                     callback([]);
                     return;
                 }
@@ -280,48 +277,44 @@ const initializeAjaxSelects = () => {
                 }
 
                 try {
-                    const response = await fetch(`${config.url}?title=${encodeURIComponent(query)}`, {
-                        method: 'GET',
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
+                    let requestUrl = config.url;
+                    requestUrl += (requestUrl.includes('?') ? '&' : '?') + `q=${encodeURIComponent(query)}`;
 
-                    if (!response.ok) {
-                        throw new Error(`HTTP error ${response.status}`);
-                    }
+                    const response = await fetch(requestUrl, { method: 'GET', headers: { 'Accept': 'application/json' } });
+                    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
-                    const json = await response.json();
-                    const data = Array.isArray(json.data) ? json.data : Array.isArray(json) ? json : [];
+                    const resJson = await response.json();        // <-- فقط یک بار json بخوان
+                    const data = Array.isArray(resJson) ? resJson : [];
+
                     responseCache.set(cacheKey, data);
                     callback(data);
                 } catch (error) {
                     console.error(`Fetch error for ${config.id}:`, error);
                     callback([]);
                 }
-            }, 200),
-            render: {
+            }, 750),            render: {
                 option: (item, escape) => {
-                    const text = item?.[config.labelField] ?? item?.name ?? 'No title';
+                    const text = item.text || 'No title';
                     return `<div class="py-2 flex mb-1"><span class="font-bold text-sm">${escape(text)}</span></div>`;
+                },
+                item: (item, escape) => {
+                    const text = item.text || 'No title';
+                    return `<div>${escape(text)}</div>`;
                 }
             }
         }));
     });
 
-    // Cleanup function to destroy instances
     const cleanup = () => {
         tomSelectInstances.forEach(instance => instance.destroy());
         tomSelectInstances.clear();
         responseCache.clear();
     };
 
-    // Cleanup on page unload
     window.addEventListener('beforeunload', cleanup);
 
     return { instances: tomSelectInstances, cleanup };
 };
-
 document.addEventListener("DOMContentLoaded", function (event) {
     new MetaDetector('#metaTitleIndicator', 50, 60);
     new MetaDetector('#metaDescriptionIndicator', 150, 165);

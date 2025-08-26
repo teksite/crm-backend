@@ -1,5 +1,5 @@
 <x-lareon::admin-editor-layout type="update"  :instance="$department">
-    @section('title', __('edit the :title',['title'=>__('department'). " ($department->title)"]))
+    @section('title', __('edit the :title of :name',['title'=>__('team'). " ($department->title)"]))
     @section('description', __('in this window you can edit the :title' ,['title'=>__('department') . " ($department->title)"]))
     @section('formRoute', route('admin.departments.update', $department))
     @section('header.start')

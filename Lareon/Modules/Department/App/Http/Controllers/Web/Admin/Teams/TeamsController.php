@@ -7,6 +7,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use Lareon\Modules\Department\App\Http\Controllers\Controller;
 use Lareon\Modules\Department\App\Http\Requests\Admin\NewDepartmentRequest;
 use Lareon\Modules\Department\App\Http\Requests\Admin\UpdateDepartmentRequest;
+use Lareon\Modules\Department\App\Http\Requests\Admin\UpdateTeamRequest;
 use Lareon\Modules\Department\App\Logic\DepartmentLogic;
 use Lareon\Modules\Department\App\Logic\TeamLogic;
 use Lareon\Modules\Department\App\Models\Department;
@@ -75,7 +76,7 @@ class TeamsController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(UpdateDepartmentRequest $request, Department $department ,Team $team)
+  public function update(UpdateTeamRequest $request, Department $department ,Team $team)
   {
     $res = $this->logic->change($request->validated() ,$team);
     return WebResponse::byResult($res, route('admin.departments.teams.edit', [$department,$team]))->go();

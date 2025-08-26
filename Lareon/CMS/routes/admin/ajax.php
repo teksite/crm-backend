@@ -7,3 +7,5 @@ use Lareon\CMS\App\Http\Controllers\Ajax\Admin\Users\UsersController;
 
 Route::get('users/get',[UsersController::class ,'get'])->name('users.get');
 Route::get('roles/get',[RolesController::class ,'get'])->name('roles.get');
+Route::get('ajax/select', [\Lareon\CMS\App\Http\Controllers\Ajax\Admin\AjaxGetModelController::class, 'get'])
+    ->name('select');
